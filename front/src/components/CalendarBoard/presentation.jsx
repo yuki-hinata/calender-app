@@ -6,7 +6,7 @@ import * as styles from './style.css';
 
 const days = ["日", "月", "火", "水", "木", "金", "土"];
 
-const CalendarBoard = ({ calendar, month, openAddscheduleDialog }) => {
+const CalendarBoard = ({ calendar, month, openAddscheduleDialog, openCurrentScheduleDialog }) => {
 
     console.log(calendar);
 
@@ -26,9 +26,14 @@ const CalendarBoard = ({ calendar, month, openAddscheduleDialog }) => {
                             </Typography>  
                         </li>
                 ))}
-                {calendar.map(c => (
-                    <li key={c.toISOString()} onClick={() => openAddscheduleDialog()}>
-                        <CalendarElement day={c} month={month}/>
+                {calendar.map(({ date, schedules }) => (
+                    <li key={date.toISOString()} onClick={() => openAddscheduleDialog(date)}>
+                        <CalendarElement 
+                        day={date} 
+                        month={month} 
+                        schedules={schedules}
+                        onClickSchedule={openCurrentScheduleDialog}
+                         />
                     </li>
                 ))}
             </GridList>

@@ -8,8 +8,9 @@ import {
         isFirstDay,
         getMonth 
     } from '../../services/calendar';
+import Schedule from '../Schedule';
 
-const CalendarElement = ({ day, month }) => {
+const CalendarElement = ({ day, month, schedules, ...props }) => {
     const format = isFirstDay(day) ? 'M月D日' : 'D';
     const today = dayjs();
     const isToday = isSameday(day, today);
@@ -30,6 +31,11 @@ const CalendarElement = ({ day, month }) => {
                     {day.format(format)}
                     </span>
                 </Typography>
+                <div className={styles.schedules}>
+                    {schedules.map(e => (
+                        <Schedule key={e.id} schedule={e} {...props} />
+                    ))}
+                </div>
         </div>
     );
 };
